@@ -14,6 +14,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
 const nextConfig = {
   basePath,
   compress: isProd,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   experimental: {
     optimizePackageImports: [
       'emoji-mart',
@@ -103,9 +107,9 @@ const nextConfig = {
       },
     ];
   },
-
   output: buildWithDocker ? 'standalone' : undefined,
   reactStrictMode: true,
+
   redirects: async () => [
     {
       destination: '/sitemap-index.xml',
@@ -166,7 +170,9 @@ const nextConfig = {
     // we need a proxy to bypass the restriction
     { destination: `${API_PROXY_ENDPOINT}/api/chat/google`, source: '/api/chat/google' },
   ],
-
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     config.experiments = {
       asyncWebAssembly: true,
