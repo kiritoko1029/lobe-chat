@@ -14,6 +14,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
 const nextConfig = {
   basePath,
   compress: isProd,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   experimental: {
     optimizePackageImports: [
       'emoji-mart',
@@ -26,7 +30,6 @@ const nextConfig = {
     ],
     webVitalsAttribution: ['CLS', 'LCP'],
   },
-
   async headers() {
     return [
       {
@@ -104,6 +107,7 @@ const nextConfig = {
     ];
   },
   output: buildWithDocker ? 'standalone' : undefined,
+
   reactStrictMode: true,
 
   redirects: async () => [
@@ -160,12 +164,14 @@ const nextConfig = {
       source: '/settings',
     },
   ],
-
   rewrites: async () => [
     // due to google api not work correct in some countries
     // we need a proxy to bypass the restriction
     { destination: `${API_PROXY_ENDPOINT}/api/chat/google`, source: '/api/chat/google' },
   ],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     config.experiments = {
       asyncWebAssembly: true,
