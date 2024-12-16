@@ -163,6 +163,11 @@ const nextConfig = {
       permanent: true,
       source: '/settings',
     },
+    {
+      destination: '/chat',
+      permanent: true,
+      source: '/welcome',
+    },
   ],
   rewrites: async () => [
     // due to google api not work correct in some countries
